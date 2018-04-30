@@ -18,8 +18,8 @@ def read_cvs_dataset(path, col_label):
     print('Formatoda classede saída(output variables): ',output_attributes.shape)
     #print(X[0])
     #print(Y[0])
-    return(input_attributes, output_attributes)
-
+    return(input_attributes,output_attributes)
+�
 
 def create_model():
     model = Sequential()
@@ -29,7 +29,7 @@ def create_model():
     return model
 
 
-def print_model (model, fich):
+def print_model (model,fich):
     from keras.utils import plot_model
     plot_model(model, to_file=fich, show_shapes=True, show_layer_names=True)
 
@@ -39,7 +39,7 @@ def compile_model (model):
     return model
 
 
-def fit_model ( model, input_attributes,output_attributes ):
+def fit_model ( model,input_attributes,output_attributes ):
     history = model.fit(input_attributes, output_attributes, validation_split=0.33, epochs=150, batch_size=10, verbose=2)
     return history
 
@@ -65,13 +65,13 @@ def print_history_loss(history):
     plt.show()
 
 
-def model_evaluate(model, input_attributes, output_attributes):
+def model_evaluate(model,input_attributes,output_attributes):
     print("########### inicio do evaluate###############################\n" )
     scores = model.evaluate(input_attributes, output_attributes)
     print("\n metrica: %s: %.2f%%\n"% (model.metrics_names[1], scores[1]*100))
 
 
-def model_print_predictions(model, input_attributes, output_attributes):
+def model_print_predictions(model,input_attributes,output_attributes):
     previsoes = model.predict(input_attributes) 
     LP=[]
     #  arredondar para 0 ou 1 pois pretende - se um output binário
@@ -79,11 +79,11 @@ def model_print_predictions(model, input_attributes, output_attributes):
         LP.append(round(prev[0]))
     #LP = [round(prev[0]) for prev in previsoes]
     for i in range( len(output_attributes)):
-        print(" Class:", output_attributes[i], " previsão:",LP[i])
+        print(" Class:",output_attributes[i]," previsão:",LP[i])
         if i>10: break
 
 def ciclo_completo():
-    (input_attributes, output_attributes) = read_cvs_dataset("pima-indians-diabetes.csv", 8)
+    (input_attributes,output_attributes) = read_cvs_dataset("pima-indians-diabetes.csv", 8)
     model = create_model()
     print_model(model,"model_MLP.png")
     compile_model (model)
@@ -92,5 +92,3 @@ def ciclo_completo():
     print_history_loss(history)
     model_evaluate(model, input_attributes, output_attributes)
     model_print_predictions(model, input_attributes, output_attributes)
-
-ciclo_completo()
